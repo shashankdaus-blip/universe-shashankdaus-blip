@@ -67,7 +67,11 @@ class TestGamesRoutes(unittest.TestCase):
             db.engine.dispose()
 
     def _seed_test_data(self) -> None:
-        """Helper method to seed test data"""
+        """Helper method to seed test data.
+        
+        Creates test publishers, categories, and games in the database
+        for use in test cases.
+        """
         # Create test publishers
         publishers = [
             Publisher(**publisher_data) for publisher_data in self.TEST_DATA["publishers"]
@@ -100,7 +104,14 @@ class TestGamesRoutes(unittest.TestCase):
         db.session.commit()
 
     def _get_response_data(self, response: Response) -> Any:
-        """Helper method to parse response data"""
+        """Helper method to parse response data.
+        
+        Args:
+            response: The Flask Response object to parse
+            
+        Returns:
+            The parsed JSON data from the response
+        """
         return json.loads(response.data)
 
     def test_get_games_success(self) -> None:

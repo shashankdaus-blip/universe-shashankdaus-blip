@@ -20,18 +20,52 @@ class Game(BaseModel):
     
     @validates('title')
     def validate_name(self, key, name):
+        """Validate the game title field.
+        
+        Args:
+            key: The name of the field being validated
+            name: The title value to validate
+            
+        Returns:
+            The validated title
+            
+        Raises:
+            ValueError: If the title doesn't meet validation requirements
+        """
         return self.validate_string_length('Game title', name, min_length=2)
     
     @validates('description')
     def validate_description(self, key, description):
+        """Validate the game description field.
+        
+        Args:
+            key: The name of the field being validated
+            description: The description value to validate
+            
+        Returns:
+            The validated description
+            
+        Raises:
+            ValueError: If the description doesn't meet validation requirements
+        """
         if description is not None:
             return self.validate_string_length('Description', description, min_length=10, allow_none=True)
         return description
     
     def __repr__(self):
+        """Return a string representation of the Game object.
+        
+        Returns:
+            A string in the format '<Game {title}, ID: {id}>'
+        """
         return f'<Game {self.title}, ID: {self.id}>'
 
     def to_dict(self):
+        """Convert the Game object to a dictionary for API responses.
+        
+        Returns:
+            A dictionary containing game data with nested publisher and category objects
+        """
         return {
             'id': self.id,
             'title': self.title,
